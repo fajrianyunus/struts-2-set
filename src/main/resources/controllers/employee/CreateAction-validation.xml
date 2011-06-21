@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE validators PUBLIC
+          "-//OpenSymphony Group//XWork Validator 1.0.2//EN" 
+          "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+<validators>
+  <field name="fullName">
+    <field-validator type="requiredstring">
+      <message>Full name is required</message>
+    </field-validator>
+  </field>
+  
+  <field name="nric">
+    <field-validator type="requiredstring">
+      <message>NRIC is required</message>
+    </field-validator>
+  </field>
+  
+  <field name="remarks">
+    <field-validator type="requiredstring">
+      <message>Remarks is required</message>
+    </field-validator>
+  </field>  
+</validators>

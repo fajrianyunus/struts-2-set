@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"       
+          "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!-- 
+  - This file is included by the struts.xml file as an example
+  - of how to break up the configuration file into multiple files.
+-->
+<struts>
+  <package name="example" namespace="/example" extends="struts-default">
+    <action name="HelloWorld" class="templates.struts2_set.example.HelloWorld">
+      <result>/example/HelloWorld.jsp</result>
+    </action>
+
+    <action name="Login_*" method="{1}" class="templates.struts2_set.example.Login">
+      <result name="input">/example/Login.jsp</result>
+      <result type="redirectAction">Menu</result>
+    </action>
+
+    <action name="*" class="templates.struts2_set.example.ExampleSupport">
+      <result>/example/{1}.jsp</result>
+    </action>
+    
+    <!-- Add additional "example" package actions here. -->
+    
+  </package>
+  
+  <package name="employee" namespace="/employee" extends="struts-default">
+  	<action name="list" class="controllers.employee.ListAction">
+  		<result name="success">/views/employee/list.jsp</result>
+  	</action>
+  	<action name="create_form" class="controllers.employee.CreateFormAction">
+  		<result name="success">/views/employee/create_form.jsp</result>
+  	</action>
+  	<action name="create" class="controllers.employee.CreateAction">
+  		<result name="none" type="redirectAction">
+  			<param name="namespace">/employee</param>
+  			<param name="actionName">list</param>
+  		</result>
+  		<result name="input">/views/employee/create_form.jsp</result>
+  	</action>
+  	<action name="delete" class="controllers.employee.DeleteAction">
+  		<result name="none" type="redirectAction">
+  			<param name="namespace">/employee</param>
+  			<param name="actionName">list</param>
+  		</result>  	
+  	</action>
+  </package>
+</struts>

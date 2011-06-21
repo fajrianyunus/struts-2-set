@@ -1,0 +1,72 @@
+<?xml version = "1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+    <!-- Change for your database -->
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+        destroy-method="close">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/struts2_set"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="password"/>
+    </bean>
+    <!--
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+        destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/pc_toshiba_asia"/>
+        <property name="username" value="root"/>
+        <property name="password" value="password"/>
+    </bean>
+    -->
+    
+	<!-- JPA Support -->
+	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<!-- JPA Vendor Adapter -->
+	<!--
+    <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="database" value="MYSQL" />
+        <property name="showSql" value="true" />
+        <property name="generateDdl" value="true" />        
+    </bean>	
+	-->
+    <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="database" value="POSTGRESQL" />
+        <property name="showSql" value="true" />
+        <property name="generateDdl" value="true" />        
+    </bean>			
+	
+	<!-- Local Container Entity Manager Factory Bean -->
+	<bean id="entityManagerFactory"
+	    class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	    <property name="dataSource" ref="dataSource" />
+	    <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter" />
+	</bean>
+    
+    <!-- Transaction Manager -->
+	<bean id="transactionManager"
+	    class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- services & serviceimpls -->
+	<bean id="helloWorldService" class="serviceimpls.HelloWorldServiceImpl"/>
+	<bean id="employeeService" class="serviceimpls.EmployeeServiceImpl"/>
+
+	<!-- actions -->
+	<bean id="helloWorldAction" class="templates.struts2_set.example.HelloWorld" scope="prototype"/>
+	<bean id="EmployeeControllerListAction" class="controllers.employee.ListAction" scope="prototype"/>
+	<bean id="EmployeeControllerCreateAction" class="controllers.employee.CreateAction" scope="prototype"/>
+	<bean id="EmployeeControllerCreateFormAction" class="controllers.employee.CreateFormAction" scope="prototype"/>
+	<bean id="EmployeeControllerDeleteAction" class="controllers.employee.DeleteAction" scope="prototype"/>
+</beans>
