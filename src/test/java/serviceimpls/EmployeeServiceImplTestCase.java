@@ -1,24 +1,24 @@
 package serviceimpls;
 
-import static org.junit.Assert.*;
-
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import entities.Employee;
 
 import services.EmployeeService;
 
-@ContextConfiguration(locations={"/applicationContext_test.xml"})
+@ContextConfiguration(locations={"classpath:/applicationContext_test.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
-public class EmployeeServiceImplTestCase {
+public class EmployeeServiceImplTestCase extends AbstractTestNGSpringContextTests {
 	private final Logger log = Logger.getLogger(this.getClass());
 	
 	@Autowired
@@ -30,30 +30,26 @@ public class EmployeeServiceImplTestCase {
 
 	public void setEmployeeService(EmployeeService employeeService) {
 		this.employeeService = employeeService;
+		System.out.println("hehehe");
 	}
 	
-	@Before
+	@BeforeMethod
 	public void beforeEachTest() {
 		employeeService.deleteAll();
+		Long count = employeeService.countAll();
+		Assert.assertEquals(new Long(0), count);
 	}
 	
 	@Test
 	public void testTheTruth() {
 		log.debug("sanity test");
-		assertTrue("is always true", true);
+		Assert.assertTrue(true);
 	}
 	
 	@Test
 	public void testEmployeeServiceIsNotNull() {
 		log.debug("testing the spring autowiring");
-		assertNotNull(employeeService);
-	}
-	
-	@Test
-	public void testBeforeEachTest() {
-		log.debug("testing the method which is executed before each test is working");
-		Long count = employeeService.countAll();
-		assertEquals(new Long(0), count);
+		Assert.assertNotNull(employeeService);
 	}
 	
 	@Test
@@ -73,12 +69,12 @@ public class EmployeeServiceImplTestCase {
 		employeeService.save(empl2);
 		
 		Long count = employeeService.countAll();
-		assertTrue("there is employee", count > 0);
+		Assert.assertTrue(count > 0);
 		
 		employeeService.deleteAll();
 		
 		Long countAfterDeletion = employeeService.countAll();
-		assertEquals(new Long(0), countAfterDeletion);
+		Assert.assertEquals(new Long(0), countAfterDeletion);
 	}
 	
 	@Test
@@ -115,7 +111,7 @@ public class EmployeeServiceImplTestCase {
 				}
 			}
 			
-			assertTrue("found in db", matchIsFound);
+			Assert.assertTrue(matchIsFound);
 		}
 	}
 	
@@ -128,10 +124,10 @@ public class EmployeeServiceImplTestCase {
 		empl.setNric("s1234567a");
 		empl.setRemarks("<h1 style='color : blue;'>comedian</h1>");
 		
-		assertNull(empl.getId());
+		Assert.assertNull(empl.getId());
 		employeeService.save(empl);
-		assertNotNull(empl.getId());
-		assertNotNull(employeeService.find(empl.getId()));
+		Assert.assertNotNull(empl.getId());
+		Assert.assertNotNull(employeeService.find(empl.getId()));
 	}	
 	
 	@Test
@@ -143,9 +139,9 @@ public class EmployeeServiceImplTestCase {
 		empl.setNric("s1234567a");
 		empl.setRemarks("<h1 style='color : blue;'>comedian</h1>");
 		employeeService.save(empl);
-		assertNotNull(empl);
+		Assert.assertNotNull(empl);
 		Long id = empl.getId();
-		assertNotNull(id);
+		Assert.assertNotNull(id);
 		
 		empl.setFullName("gurmit singh");
 		empl.setNric("s7654321b");
@@ -153,7 +149,7 @@ public class EmployeeServiceImplTestCase {
 		employeeService.save(empl);
 		
 		Employee retrievedEmployee = employeeService.find(id);
-		assertNotNull(retrievedEmployee);
+		Assert.assertNotNull(retrievedEmployee);
 		
 		boolean doesMatch = false;
 		
@@ -165,7 +161,7 @@ public class EmployeeServiceImplTestCase {
 			}
 		}
 		
-		assertTrue("updated record is correct", doesMatch);
+		Assert.assertTrue(doesMatch);
 	}
 	
 	@Test
@@ -177,13 +173,13 @@ public class EmployeeServiceImplTestCase {
 		empl.setNric("s1234567a");
 		empl.setRemarks("<h1 style='color : blue;'>comedian</h1>");
 		employeeService.save(empl);
-		assertNotNull(empl);
+		Assert.assertNotNull(empl);
 		Long id = empl.getId();
-		assertNotNull(id);
+		Assert.assertNotNull(id);
 		
 		employeeService.removeById(id);
 		
-		assertNull("must be already deleted", employeeService.find(id));
+		Assert.assertNull(employeeService.find(id));
 	}
 	
 	@Test
@@ -197,12 +193,12 @@ public class EmployeeServiceImplTestCase {
 		empl.setNric("s1234567a");
 		empl.setRemarks("<h1 style='color : blue;'>comedian</h1>");
 		employeeService.save(empl);
-		assertNotNull(empl);
+		Assert.assertNotNull(empl);
 		Long id = empl.getId();
-		assertNotNull(id);
+		Assert.assertNotNull(id);
 		
 		Employee retrievedEmployee = employeeService.find(id);
-		assertNotNull(retrievedEmployee);
+		Assert.assertNotNull(retrievedEmployee);
 		
 		boolean doesMatch = false;
 		
@@ -214,7 +210,7 @@ public class EmployeeServiceImplTestCase {
 			}
 		}
 		
-		assertTrue("the record is found", doesMatch);
+		Assert.assertTrue(doesMatch);
 	}
 	
 	@Test
@@ -238,6 +234,6 @@ public class EmployeeServiceImplTestCase {
 		employeeService.save(empl[1]);
 		count[1] = employeeService.countAll();
 		
-		assertEquals(1L, count[1] - count[0]);
+		Assert.assertEquals(1L, count[1] - count[0]);
 	}
 }
