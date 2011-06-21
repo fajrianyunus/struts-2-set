@@ -22,7 +22,7 @@
         class="org.springframework.jdbc.datasource.DriverManagerDataSource"
         destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/pc_toshiba_asia"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/struts2_set"/>
         <property name="username" value="root"/>
         <property name="password" value="password"/>
     </bean>
