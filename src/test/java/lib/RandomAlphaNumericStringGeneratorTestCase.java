@@ -1,24 +1,21 @@
 package lib;
 
-import static org.junit.Assert.*;
-
 import java.util.Random;
 
 import org.apache.log4j.Logger;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.apache.struts2.StrutsTestCase;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:/applicationContext_test.xml"})
-public class RandomAlphaNumericStringGeneratorTestCase {
+public class RandomAlphaNumericStringGeneratorTestCase extends StrutsTestCase {
 	private final Logger log = Logger.getLogger(this.getClass());	
 	
 	@Test
 	public void testTheTruth() {
 		log.debug("sanity test");
-		assertTrue("is always true", true);
+		Assert.assertTrue(true);
 	}
 	
     @Test
@@ -29,8 +26,8 @@ public class RandomAlphaNumericStringGeneratorTestCase {
         for (int i = 0 ; i < 100 ; i++) {
             int stringLength = (int) Math.ceil(r.nextDouble() * 100);
             String randomString = RandomAlphaNumericStringGenerator.generate(stringLength);
-            assertEquals(stringLength, randomString.length());     
-            assertTrue("random string contains only alphanumeric", randomString.matches("^[a-zA-Z0-9]*$"));
+            Assert.assertNotNull(randomString);
+            Assert.assertTrue(randomString.matches("^[a-zA-Z0-9]{"+stringLength+"}$"));
         }
     }	
 }
