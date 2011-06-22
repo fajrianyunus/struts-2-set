@@ -59,6 +59,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/apache/struts/struts2-junit-plugin/2.1.8.1/struts2-junit-plugin-2.1.8.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/struts/struts2-spring-plugin/2.2.1.1/struts2-spring-plugin-2.2.1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.6.0_24/lib/tools.jar"/>
+	<classpathentry kind="lib" path="lib/c3p0-0.9.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/velocity/velocity/1.5/velocity-1.5.jar"/>
 	<classpathentry kind="var" path="M2_REPO/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/opensymphony/xwork-core/2.1.6/xwork-core-2.1.6.jar"/>

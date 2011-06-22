@@ -10,12 +10,17 @@
 
     <!-- Change for your database -->
     <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+        class="com.mchange.v2.c3p0.ComboPooledDataSource"
         destroy-method="close">
-        <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost:5432/struts2_set"/>
-        <property name="username" value="postgres"/>
+        <property name="driverClass" value="org.postgresql.Driver"/>
+        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/struts2_set"/>
+        <property name="user" value="postgres"/>
         <property name="password" value="password"/>
+		  <property name="minPoolSize" value="1" />
+		  <property name="maxPoolSize" value="100" />
+		  <property name="maxStatements" value="50" />
+		  <property name="idleConnectionTestPeriod" value="3000" />
+		  <property name="loginTimeout" value="300" />        
     </bean>
     <!--
     <bean id="dataSource"

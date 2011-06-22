@@ -15,6 +15,11 @@
   
 
     <dependencies>
+		<dependency>
+		    <groupId>c3p0</groupId>
+		    <artifactId>c3p0</artifactId>
+		    <version>0.9.1</version>
+		</dependency>	    
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
@@ -169,7 +174,8 @@
 			<groupId>org.hibernatespatial</groupId>
 			<artifactId>hibernate-spatial-postgis</artifactId>
 			<version>1.0</version>
-		</dependency>		         
+		</dependency>	
+		         
     </dependencies>
     
 	<repositories>

@@ -5,11 +5,17 @@
     <classes>
       <class name="serviceimpls.EmployeeServiceImplTestCase">
         <methods>
-          <include name="testTheLies"/>
-          <include name="springTestContextBeforeTestMethod"/>
+          <include name="testCanFindAll"/>
+          <include name="testCanDeleteAll"/>
+          <include name="testTheTruth"/>
+          <include name="testCanUpdate"/>
           <include name="springTestContextPrepareTestInstance"/>
           <include name="springTestContextAfterTestMethod"/>
-          <include name="beforeEachTest"/>
+          <include name="testEmployeeServiceIsNotNull"/>
+          <include name="testCanRemoveById"/>
+          <include name="testCanFind"/>
+          <include name="testCanInsert"/>
+          <include name="testCanCountAll"/>
         </methods>
       </class>
     </classes>
